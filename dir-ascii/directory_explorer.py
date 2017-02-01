@@ -32,7 +32,7 @@ class DirectoryExplorer(object):
             if not self._show_hidden and re.match(r"\..*", entry):
                 continue
 
-            if os.path.isfile():
+            if os.path.isfile(entry):
                 files.append(entry)
             else:
                 directories.append(entry)
@@ -40,9 +40,10 @@ class DirectoryExplorer(object):
         return files, directories
 
     def explore(self):
+        results = []
+        recursion_level = 0
         current_level = deque(self._start_dir)
         next_level = deque()
-        recursion_level = 0
 
         while len(current_level) != 0:
             current_dir = current_level.popleft()
@@ -51,13 +52,14 @@ class DirectoryExplorer(object):
             files, directories = self._sort_and_filter(listdir_result)
             results.append((directories, files))
 
-            if recursion_level == recursion_limit:
+            if recursion_level == self._recursion_limit:
                 continue
 
             for directory in directories:
                 next_level.append(directory)
 
-            if len(current_level) == 0 and recursion_level < recursion_limit:
+            if len(current_level) == 0 and \
+                    recursion_level < self._recursion_limit:
                 current_level = next_level
                 next_level = deque()
                 recursion_level += 1
