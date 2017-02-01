@@ -12,6 +12,54 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from collections import deque
+import os
+import re
+
 
 class DirectoryExplorer(object):
-    pass
+
+    def __init__(self, start_dir=".", show_hidden=False, recursion_limit=10):
+        self._start_dir = start_dir
+        self._show_hidden = show_hidden
+        self._recursion_limit = recursion_limit
+
+    def _sort_and_filter(self, raw_list):
+        files = []
+        directories = []
+
+        for entry in raw_list:
+            if not self._show_hidden and re.match(r"\..*", entry):
+                continue
+
+            if os.path.isfile():
+                files.append(entry)
+            else:
+                directories.append(entry)
+
+        return files, directories
+
+    def explore(self):
+        current_level = deque(self._start_dir)
+        next_level = deque()
+        recursion_level = 0
+
+        while len(current_level) != 0:
+            current_dir = current_level.popleft()
+
+            listdir_result = os.listdir(current_dir)
+            files, directories = self._sort_and_filter(listdir_result)
+            results.append((directories, files))
+
+            if recursion_level == recursion_limit:
+                continue
+
+            for directory in directories:
+                next_level.append(directory)
+
+            if len(current_level) == 0 and recursion_level < recursion_limit:
+                current_level = next_level
+                next_level = deque()
+                recursion_level += 1
+
+        return results
