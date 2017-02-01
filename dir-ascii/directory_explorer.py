@@ -32,12 +32,9 @@ class DirectoryExplorer(object):
             if not self._show_hidden and re.match(r"\..*", entry):
                 continue
 
-            print entry
             if os.path.isfile(os.path.join(root, entry)):
-                print "file"
                 files.append(entry)
             else:
-                print "dir"
                 directories.append(entry)
 
         return files, directories
