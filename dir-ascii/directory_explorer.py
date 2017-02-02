@@ -42,9 +42,10 @@ class DirectoryExplorer(object):
     def explore(self):
         results = []
         recursion_level = 0
-        current_level = deque(self._start_dir)
+        current_level = deque()
         next_level = deque()
 
+        current_level.append(self._start_dir)
         while len(current_level) != 0:
             current_dir = current_level.popleft()
 
