@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .directory_explorer import DirectoryExplorer
+
 
 if __name__ == "__main__":
-    pass
+    exp = DirectoryExplorer()
+    print exp.explore()
