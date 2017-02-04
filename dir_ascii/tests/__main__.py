@@ -12,11 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
 import unittest
 
 
 def load_tests(loader, standard_tests, pattern):
+    """
+    Test loader function loads all files with the provided pattern to the tests.
+    """
     pattern = pattern or "test*.py"
     package_tests = loader.discover(start_dir=".", pattern=pattern)
     standard_tests.addTests(package_tests)
