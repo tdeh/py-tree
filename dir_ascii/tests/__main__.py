@@ -12,12 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""This module is the entry point for running unittests
+
+Example:
+    In order to run this module and the unittests, use this command::
+
+        $ python -m dir_ascii.tests
+"""
+
 import unittest
 
 
 def load_tests(loader, standard_tests, pattern):
-    """
-    Test loader function loads all files with the provided pattern to the tests.
+    """ Test loader function.
+
+    This function is called by the unittest framework when running the
+    unittests and loads all tests in files matching the pattern.
     """
     pattern = pattern or "test*.py"
     package_tests = loader.discover(start_dir=".", pattern=pattern)
