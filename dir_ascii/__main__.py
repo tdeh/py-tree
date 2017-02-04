@@ -12,9 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""This module is the entry point for dir_ascii.
+
+Example:
+    In order to run dir_ascii, use this command::
+
+        $ python -m dir_ascii
+"""
+
 from .directory_explorer import DirectoryExplorer
 
 
 if __name__ == "__main__":
-    exp = DirectoryExplorer()
-    print exp.explore()
+    print DirectoryExplorer().explore()
