@@ -12,6 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""This modules contains tests for the DirectoryExplorer class.
+
+Example:
+    These tests can be run with the command::
+
+        $ python -m dir_ascii.tests.test_directory_explorer
+"""
+
 import os
 import shutil
 import unittest
@@ -19,6 +27,7 @@ from ..directory_explorer import DirectoryExplorer
 
 
 class TestDirectoryExplorer(unittest.TestCase):
+    """Unittest class containing tests for DirectoryExplorer."""
 
     def setUp(self):
         self.test_dir = os.path.abspath("./test_dir/") + "/"
@@ -50,6 +59,7 @@ class TestDirectoryExplorer(unittest.TestCase):
         shutil.rmtree(self.test_dir)
 
     def test_explore_hides_hidden_files(self):
+        """Tests that show_hidden=false will not show hidden files."""
         direxp = DirectoryExplorer(start_dir=self.test_dir, show_hidden=False)
         results = direxp.explore()
         _, files = results[0]
@@ -58,6 +68,7 @@ class TestDirectoryExplorer(unittest.TestCase):
             self.assertFalse(fname in files)
 
     def test_explore_hides_hidden_dirs(self):
+        """Tests that show_hidden=false will not show hidden directories."""
         direxp = DirectoryExplorer(start_dir=self.test_dir, show_hidden=False)
         results = direxp.explore()
         dirs, _ = results[0]
@@ -66,6 +77,7 @@ class TestDirectoryExplorer(unittest.TestCase):
             self.assertFalse(dir_name in dirs)
 
     def test_explore_shows_hidden_files(self):
+        """Tests that show_hidden=true will show hidden files."""
         direxp = DirectoryExplorer(start_dir=self.test_dir, show_hidden=True)
         results = direxp.explore()
         _, files = results[0]
@@ -74,6 +86,7 @@ class TestDirectoryExplorer(unittest.TestCase):
             self.assertTrue(fname in files)
 
     def test_explore_shows_hidden_dirs(self):
+        """Tests that show_hidden=true will show hidden directories."""
         direxp = DirectoryExplorer(start_dir=self.test_dir, show_hidden=True)
         results = direxp.explore()
         dirs, _ = results[0]
@@ -82,6 +95,7 @@ class TestDirectoryExplorer(unittest.TestCase):
             self.assertTrue(dir_name in dirs)
 
     def test_explore_finds_all_files(self):
+        """Test that explore will find all files."""
         direxp = DirectoryExplorer(start_dir=self.test_dir, show_hidden=False)
         results = direxp.explore()
 
@@ -93,6 +107,7 @@ class TestDirectoryExplorer(unittest.TestCase):
                 recursion_level += 1
 
     def test_explore_finds_all_dirs(self):
+        """Test that explore will find all directories."""
         direxp = DirectoryExplorer(start_dir=self.test_dir, show_hidden=False)
         results = direxp.explore()
 
@@ -104,6 +119,7 @@ class TestDirectoryExplorer(unittest.TestCase):
                 recursion_level += 1
 
     def test_recursion_limit(self):
+        """Test that explore exits once meeting the recursion limit."""
         recursion_limit = 1
         direxp = DirectoryExplorer(start_dir=self.test_dir, show_hidden=False,
                                    recursion_limit=recursion_limit)
