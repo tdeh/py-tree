@@ -18,6 +18,12 @@ import re
 
 
 class DirectoryExplorer(object):
+    """
+    This class exposes an explore() method which performs a breadth-first search
+    through directories and returns the results. The invoker can specify whether
+    hidden files and directories are displayed (".[name]") and can set a maximum
+    recursion level.
+    """
 
     def __init__(self, start_dir=".", show_hidden=False, recursion_limit=10):
         self._start_dir = start_dir
@@ -25,18 +31,35 @@ class DirectoryExplorer(object):
         self._recursion_limit = recursion_limit
 
     def _sort_and_filter(self, raw_list, root):
+        """
+        Takes a list of directories and files, parses each entry sorting it
+        based on whether it's a file or a directory, filters out hidden files if
+        show_hidden is False, and returns a tuple of file and directory lists.
+
+        @param raw_list List containing string directory and file names
+        @param root Root path to the entries in the list
+        @return A tuple of two lists, one for files and the other for
+                directories
+        """
+        # Initialize lists for files and directories
         files = []
         directories = []
 
+        # Iterate through each entry in the file/directory list
         for entry in raw_list:
+            # If show hidden is false and the entry starts with a '.', continue
+            # to the next entry
             if not self._show_hidden and re.match(r"\..*", entry):
                 continue
 
+            # If the entry is a file, append it to the file list, else append
+            # it to the directory list
             if os.path.isfile(os.path.join(root, entry)):
                 files.append(entry)
             else:
                 directories.append(entry)
 
+        # Return tuple of the file and directory list
         return files, directories
 
     def explore(self):
