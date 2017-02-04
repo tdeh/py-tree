@@ -27,11 +27,11 @@ class TestDirectoryExplorer(unittest.TestCase):
         self.hidden_files = [".hidfile.txt", "..hidfile.txt"]
         self.hidden_dirs = [".hiddir", "..hiddir"]
 
-        for f in self.hidden_files:
-            self._make_file(self.test_dir + f)
+        for fname in self.hidden_files:
+            open(self.test_dir + fname, 'a').close()
 
-        for d in self.hidden_dirs:
-            os.mkdir(self.test_dir + d)
+        for dir_name in self.hidden_dirs:
+            os.mkdir(self.test_dir + dir_name)
 
         self.dir_pattern_a = "dira%i"
         self.dir_pattern_b = "dirb%i"
@@ -40,8 +40,8 @@ class TestDirectoryExplorer(unittest.TestCase):
 
         path = self.test_dir
         for i in range(3):
-            self._make_file(path + (self.file_pattern_a % i))
-            self._make_file(path + (self.file_pattern_b % i))
+            open(path + (self.file_pattern_a % i), 'a').close()
+            open(path + (self.file_pattern_b % i), 'a').close()
             os.mkdir(path + (self.dir_pattern_a % i))
             os.mkdir(path + (self.dir_pattern_b % i))
             path = os.path.join(path, self.dir_pattern_a % i) + "/"
@@ -49,40 +49,37 @@ class TestDirectoryExplorer(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.test_dir)
 
-    def _make_file(self, filename):
-        open(filename, 'a').close()
-
     def test_explore_hides_hidden_files(self):
         direxp = DirectoryExplorer(start_dir=self.test_dir, show_hidden=False)
         results = direxp.explore()
         _, files = results[0]
 
-        for f in self.hidden_files:
-            self.assertFalse(f in files)
+        for fname in self.hidden_files:
+            self.assertFalse(fname in files)
 
     def test_explore_hides_hidden_dirs(self):
         direxp = DirectoryExplorer(start_dir=self.test_dir, show_hidden=False)
         results = direxp.explore()
         dirs, _ = results[0]
 
-        for d in self.hidden_dirs:
-            self.assertFalse(d in dirs)
+        for dir_name in self.hidden_dirs:
+            self.assertFalse(dir_name in dirs)
 
     def test_explore_shows_hidden_files(self):
         direxp = DirectoryExplorer(start_dir=self.test_dir, show_hidden=True)
         results = direxp.explore()
         _, files = results[0]
 
-        for f in self.hidden_files:
-            self.assertTrue(f in files)
+        for fname in self.hidden_files:
+            self.assertTrue(fname in files)
 
     def test_explore_shows_hidden_dirs(self):
         direxp = DirectoryExplorer(start_dir=self.test_dir, show_hidden=True)
         results = direxp.explore()
         dirs, _ = results[0]
 
-        for d in self.hidden_dirs:
-            self.assertTrue(d in dirs)
+        for dir_name in self.hidden_dirs:
+            self.assertTrue(dir_name in dirs)
 
     def test_explore_finds_all_files(self):
         direxp = DirectoryExplorer(start_dir=self.test_dir, show_hidden=False)
