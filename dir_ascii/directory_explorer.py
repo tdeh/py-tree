@@ -12,17 +12,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""This module contains the DirectoryExplorer class.
+
+The DirectoryExplorer class is used to recursively explore files and
+directories.
+"""
+
 from collections import deque
 import os
 import re
 
 
 class DirectoryExplorer(object):
-    """
+    """Recursively explores files and directories.
+
     This class exposes an explore() method which performs a breadth-first search
     through directories and returns the results. The invoker can specify whether
-    hidden files and directories are displayed (".[name]") and can set a maximum
-    recursion level.
+    hidden files and directories are displayed and can set a maximum recursion
+    level.
+
+    Args:
+        start_dir (str): The path to the directory where the BFS will originate.
+        show_hidden (bool): When false, filter out hidden files and directories.
+            Hidden files and directories start with a "."
+        recursion_limit (int): The number of recursion levels that can should be
+            explored.
+
+    Attributes:
+        _start_dir (str): The path to the directory where the BFS will
+            originate.
+        _show_hidden (bool): When false, filter out hidden files and
+            directories.
+        _recursion_limit (int): The number of recursion levels that will be
+            explored.
     """
 
     def __init__(self, start_dir=".", show_hidden=False, recursion_limit=10):
@@ -31,15 +53,18 @@ class DirectoryExplorer(object):
         self._recursion_limit = recursion_limit
 
     def _sort_and_filter(self, raw_list, root):
-        """
+        """Sorts and filters a list of files and directories.
+
         Takes a list of directories and files, parses each entry sorting it
         based on whether it's a file or a directory, filters out hidden files if
         show_hidden is False, and returns a tuple of file and directory lists.
 
-        @param raw_list List containing string directory and file names
-        @param root Root path to the entries in the list
-        @return A tuple of two lists, one for files and the other for
-                directories
+        Args:
+            raw_list (list): List containing string directory and file names.
+            root (str): Root path to the entries in the list.
+
+        Returns:
+            A tuple of two lists, one for files and the other for directories.
         """
         # Initialize lists for files and directories
         files = []
@@ -63,13 +88,16 @@ class DirectoryExplorer(object):
         return files, directories
 
     def explore(self):
-        """
-        Performs a breadth-first search on directory contents originating from
-        _start_dir.
+        """Performs a breadth-first search on directory contents.
 
-        @return A list of tuples. The tuples consist of two lists; the first
-                containing directories and the second containing files. Each
-                entry in the list represents the contents of a directory.
+        The search starts from from the _start_dir and will continue until
+        either there are no more directories to explore or the recursion limit
+        has been met.
+
+        Returns:
+            A list of tuples. The tuples consist of two lists; the first
+            containing directories and the second containing files. Each entry
+            in the list represents the contents of a directory.
         """
         # Initialize results and recursion_level variables
         results = []
