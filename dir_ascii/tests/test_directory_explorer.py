@@ -107,7 +107,7 @@ class TestDirectoryExplorer(unittest.TestCase):
                 recursion_level += 1
 
     def test_recursion_limit(self):
-        recursion_limit = 2
+        recursion_limit = 1
         direxp = DirectoryExplorer(start_dir=self.test_dir, show_hidden=False,
                                    recursion_limit=recursion_limit)
         results = direxp.explore()
@@ -116,8 +116,8 @@ class TestDirectoryExplorer(unittest.TestCase):
         for dirs, _ in results:
             if dirs:
                 if recr_depth > recursion_limit:
-                    self.assertFrue(self.dir_pattern_a % recr_depth in dirs)
-                    self.assertFrue(self.dir_pattern_b % recr_depth in dirs)
+                    self.assertFalse(self.dir_pattern_a % recr_depth in dirs)
+                    self.assertFalse(self.dir_pattern_b % recr_depth in dirs)
                 else:
                     self.assertTrue(self.dir_pattern_a % recr_depth in dirs)
                     self.assertTrue(self.dir_pattern_b % recr_depth in dirs)
