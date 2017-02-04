@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""This module is the entry point for running unittests
+"""This module is the entry point for running unittests.
 
 Example:
     In order to run this module and the unittests, use this command::
