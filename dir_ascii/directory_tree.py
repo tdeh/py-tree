@@ -11,3 +11,39 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+
+class DirectoryNode(object):
+
+    def __init__(self, name):
+        self._name = name
+        self._child_dirs = []
+        self._files = []
+
+    def add_child(self, name):
+        self._child_dirs.append(DirectoryNode(name))
+
+    def add_file(self, filename):
+        self._files.append(filename)
+
+    def children(self):
+        for node in self._child_dirs:
+            yield node
+
+    def files(self):
+        for filename in self._files:
+            yield filename
+
+
+class DirectoryTree(object):
+
+    def __init__(self, root_name):
+        self._root = DirectoryNode(root_name)
+        self._current_node = self._root
+
+    def set_current_node(self, node):
+        self._current_node = node
+
+    def get_current_node(self):
+        return self._current_node
+
