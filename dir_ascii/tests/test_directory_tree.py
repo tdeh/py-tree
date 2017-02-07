@@ -11,3 +11,26 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+import unittest
+from ..directory_tree import DirectoryTree, DirectoryNode
+
+
+class TestDirectoryNode(unittest.TestCase):
+    """Unittest class containing tests for DirectoryNode."""
+
+    pass
+
+
+class TestDirectoryTree(unittest.TestCase):
+    """Unittest class containing tests for DirectoryTree."""
+
+    def test_get_root(self):
+        """Test the get_root() method."""
+        root_name = "root"
+        tree = DirectoryTree(root_name)
+        self.assertEqual(tree.get_root(), tree._root)
+
+
+if __name__ == "__main__":
+    unittest.main()
