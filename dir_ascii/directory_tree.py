@@ -129,4 +129,3 @@ class DirectoryTree(object):
             DirectoryNode: The root node of the tree.
         """
         return self._root
-

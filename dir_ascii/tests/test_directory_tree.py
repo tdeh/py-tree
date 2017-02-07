@@ -81,8 +81,8 @@ class TestDirectoryNode(unittest.TestCase):
             self.node.add_file(name_template % i)
 
         i = 0
-        for file in self.node.get_files():
-            self.assertEqual(file, name_template % i)
+        for filename in self.node.get_files():
+            self.assertEqual(filename, name_template % i)
             i += 1
 
 
