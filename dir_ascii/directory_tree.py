@@ -39,11 +39,7 @@ class DirectoryTree(object):
 
     def __init__(self, root_name):
         self._root = DirectoryNode(root_name)
-        self._current_node = self._root
 
-    def set_current_node(self, node):
-        self._current_node = node
-
-    def get_current_node(self):
-        return self._current_node
+    def get_root(self):
+        return self._root
 
