@@ -37,6 +37,12 @@ class DirectoryNode(object):
     def get_name(self):
         return self._name
 
+    def get_children(self):
+        return self._child_dirs
+
+    def get_files(self):
+        return self._files
+
 
 class DirectoryTree(object):
 
