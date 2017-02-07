@@ -34,6 +34,9 @@ class DirectoryNode(object):
         for filename in self._files:
             yield filename
 
+    def get_name(self):
+        return name
+
 
 class DirectoryTree(object):
 
