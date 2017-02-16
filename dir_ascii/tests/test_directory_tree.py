@@ -100,6 +100,21 @@ class TestDirectoryNode(unittest.TestCase):
             self.assertEqual(filename, name_template % i)
             i += 1
 
+    def test_get_last_child(self):
+        """Test the get_last_child method."""
+        # Test on empty list
+        self.assertIsNone(self.node.get_last_child())
+
+        # Test on populated list
+        n_children = 50
+        name_template = "child%i"
+
+        for i in range(n_children):
+            self.node.add_child(name_template % i)
+
+        self.assertEqual(self.node.get_last_child().get_name(),
+                         name_template % i)
+
 
 class TestDirectoryTree(unittest.TestCase):
     """Unittest class containing tests for DirectoryTree."""
