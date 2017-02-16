@@ -21,7 +21,7 @@ directories.
 from collections import deque
 import os
 import re
-from .directory_tree import DirectoryTree, DirectoryNode
+from .directory_tree import DirectoryTree
 
 
 class DirectoryExplorer(object):

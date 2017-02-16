@@ -113,7 +113,7 @@ class TestDirectoryNode(unittest.TestCase):
             self.node.add_child(name_template % i)
 
         self.assertEqual(self.node.get_last_child().get_name(),
-                         name_template % i)
+                         name_template % (n_children - 1))
 
 
 class TestDirectoryTree(unittest.TestCase):
