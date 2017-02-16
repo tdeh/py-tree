@@ -122,6 +122,17 @@ class DirectoryTree(object):
     def __init__(self, root_name):
         self._root = DirectoryNode(root_name)
 
+    def _traverse_and_print(self, node):
+        """Recursive method calls self on all children then prints node."""
+        for child_node in node.children():
+            self._traverse_and_print(child_node)
+
+        print "%s | %s" % (node.get_name(), ", ".join(node.get_files()))
+
+    def print_tree(self):
+        """Prints the results from an in order traversal of the tree."""
+        self._traverse_and_print(self._root)
+
     def get_root(self):
         """Get the root of the tree.
 
