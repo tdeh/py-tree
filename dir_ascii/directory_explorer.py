@@ -21,6 +21,7 @@ directories.
 from collections import deque
 import os
 import re
+from .directory_tree import DirectoryTree, DirectoryNode
 
 
 class DirectoryExplorer(object):
@@ -145,3 +146,60 @@ class DirectoryExplorer(object):
                 recursion_level += 1
 
         return results
+
+    def build_tree(self):
+        """Builds a DirectoryTree by BFSing through directory contents.
+
+        This method is very similar to explore() except that this method builds
+        and returns a DirectoryTree object instead of alist of tuples.
+
+        Returns:
+            A DirectoryTree object.
+        """
+        # Initialize result and recursion_level variables
+        result = DirectoryTree(self._start_dir)
+        recursion_level = 0
+
+        # Initialize the two queues for the current level and the next level
+        current_level = deque()
+        next_level = deque()
+
+        # Add the start directory and root to the current level
+        current_level.append((self._start_dir, result.get_root()))
+
+        # Loop while the current level queue is not empty
+        while len(current_level) != 0:
+            # Pop the current directory and node from the top of the queue
+            current_dir, current_node = current_level.popleft()
+
+            # Use os.listdir to get a list of all files & directories inside of
+            # the current_dir
+            listdir_result = os.listdir(current_dir)
+
+            # Sort and filter the results from listdir
+            files, directories = self._sort_and_filter(listdir_result,
+                                                       current_dir)
+
+            # Add files to node
+            current_node.add_files(files)
+
+            # For each directory inside of current_dir, add child node
+            for directory in directories:
+                current_node.add_child(directory)
+
+                # Append dirname + node tuple to next level queue if recursion
+                # limit has not been reached
+                if recursion_level != self._recursion_limit:
+                    next_level.append((os.path.join(current_dir, directory),
+                                       current_node.get_last_child()))
+
+            # If the current levl queue is empty and we are still below the
+            # recursion limit, set the current level queue equal to the next
+            # level queue and increment the recursion level
+            if len(current_level) == 0 and \
+                    recursion_level < self._recursion_limit:
+                current_level = next_level
+                next_level = deque()
+                recursion_level += 1
+
+        return result
