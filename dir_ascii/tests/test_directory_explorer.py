@@ -49,11 +49,11 @@ class TestDirectoryExplorer(unittest.TestCase):
 
         path = self.test_dir
         for i in range(3):
-            open(path + (self.file_pattern_a % i), 'a').close()
-            open(path + (self.file_pattern_b % i), 'a').close()
             os.mkdir(path + (self.dir_pattern_a % i))
             os.mkdir(path + (self.dir_pattern_b % i))
             path = os.path.join(path, self.dir_pattern_a % i) + "/"
+            open(path + (self.file_pattern_a % i), 'a').close()
+            open(path + (self.file_pattern_b % i), 'a').close()
 
     def tearDown(self):
         shutil.rmtree(self.test_dir)
@@ -135,6 +135,26 @@ class TestDirectoryExplorer(unittest.TestCase):
                     self.assertTrue(self.dir_pattern_a % recr_depth in dirs)
                     self.assertTrue(self.dir_pattern_b % recr_depth in dirs)
                 recr_depth += 1
+
+    def test_build_tree(self):
+        """Test the build_tree method."""
+        direxp = DirectoryExplorer(start_dir=self.test_dir, show_hidden=False)
+        tree = direxp.build_tree()
+
+        level = 0
+        current_node = tree.get_root()
+        while current_node.get_children():
+            children = [ch.get_name() for ch in current_node.get_children()]
+            self.assertTrue(self.dir_pattern_a % level in children)
+            self.assertTrue(self.dir_pattern_b % level in children)
+
+            if current_node.get_name() is self.dir_pattern_a % (level - 1):
+                files = current_node.get_files()
+                self.assertTrue(self.file_pattern_a % level in files)
+                self.assertTrue(self.file_pattern_b % level in files)
+
+            level += 1
+            current_node = current_node.get_children()[0]
 
 
 if __name__ == "__main__":
