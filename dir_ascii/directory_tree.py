@@ -63,6 +63,14 @@ class DirectoryNode(object):
         """
         self._files.append(filename)
 
+    def add_files(self, file_list):
+        """Adds a list of files to the directory's file list.
+
+        Args:
+            file_list (list): List of files to add to _files.
+        """
+        self._files += file_list
+
     def children(self):
         """Iterates through the child nodes.
 
