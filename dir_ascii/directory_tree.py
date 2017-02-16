@@ -146,7 +146,7 @@ class DirectoryTree(object):
         for child_node in node.children():
             self._traverse_and_print(child_node)
 
-        print "%s | %s" % (node.get_name(), ", ".join(node.get_files()))
+        print("%s | %s" % (node.get_name(), ", ".join(node.get_files()))) # pylint: disable=superfluous-parens
 
     def print_tree(self):
         """Prints the results from an in order traversal of the tree."""
