@@ -24,4 +24,4 @@ from .directory_explorer import DirectoryExplorer
 
 
 if __name__ == "__main__":
-    print(DirectoryExplorer().explore())  # pylint: disable=superfluous-parens
+    DirectoryExplorer().build_tree().print_tree()
