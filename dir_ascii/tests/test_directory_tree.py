@@ -59,6 +59,21 @@ class TestDirectoryNode(unittest.TestCase):
         for i in range(n_files):
             self.assertEqual(files[i], name_template % i)
 
+    def test_add_files_get_files(self):
+        """Test add_files and get_files methods."""
+        n_files = 50
+        file_list = []
+        name_template = "file%i"
+
+        for i in range(n_files):
+            file_list.append(name_template % i)
+
+        self.node.add_files(file_list)
+
+        files = self.node.get_files()
+        for i in range(n_files):
+            self.assertEqual(files[i], name_template % i)
+
     def test_children_generator(self):
         """Test the get_children generator method."""
         n_children = 50
