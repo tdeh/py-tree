@@ -63,6 +63,14 @@ class DirectoryNode(object):
         """
         self._files.append(filename)
 
+    def add_files(self, file_list):
+        """Adds a list of files to the directory's file list.
+
+        Args:
+            file_list (list): List of files to add to _files.
+        """
+        self._files += file_list
+
     def children(self):
         """Iterates through the child nodes.
 
@@ -105,6 +113,17 @@ class DirectoryNode(object):
         """
         return self._files
 
+    def get_last_child(self):
+        """Get the last child added to the list of children.
+
+        Returns:
+            Last child node added to list if list is not empty else None.
+        """
+        try:
+            return self._child_dirs[-1]
+        except IndexError:
+            return None
+
 
 class DirectoryTree(object):
     """Collection of DirectoryNodes modeled after a simple tree.
@@ -121,6 +140,17 @@ class DirectoryTree(object):
 
     def __init__(self, root_name):
         self._root = DirectoryNode(root_name)
+
+    def _traverse_and_print(self, node):
+        """Recursive method calls self on all children then prints node."""
+        for child_node in node.children():
+            self._traverse_and_print(child_node)
+
+        print("%s | %s" % (node.get_name(), ", ".join(node.get_files()))) # pylint: disable=superfluous-parens
+
+    def print_tree(self):
+        """Prints the results from an in order traversal of the tree."""
+        self._traverse_and_print(self._root)
 
     def get_root(self):
         """Get the root of the tree.
