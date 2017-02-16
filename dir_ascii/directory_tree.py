@@ -113,6 +113,17 @@ class DirectoryNode(object):
         """
         return self._files
 
+    def get_last_child(self):
+        """Get the last child added to the list of children.
+
+        Returns:
+            Last child node added to list if list is not empty else None.
+        """
+        try:
+            return self._child_dirs[-1]
+        except IndexError:
+            return None
+
 
 class DirectoryTree(object):
     """Collection of DirectoryNodes modeled after a simple tree.
