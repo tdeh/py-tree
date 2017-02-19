@@ -73,7 +73,7 @@ class TreePrinter(object):
 
         # If an output file is specified, redirect stdout to file
         if output_file:
-            sys.stdout = open(output_file, 'wb')
+            sys.stdout = open(output_file, 'w')
 
     def _print_recursive(self, node, indent_str):
         """Recursive method called on all nodes to print children and files.
