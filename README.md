@@ -2,7 +2,9 @@
 
 [![Build Status](https://travis-ci.org/tdeh/dir-ascii.svg?branch=master)](https://travis-ci.org/tdeh/dir-ascii)
 
-ASCII display of directory hierarchies for terminals.
+## Overview ##
+
+Creates an ASCII-based graphcial representation of directory hierarchies.
 
 ### Example Output ###
 
