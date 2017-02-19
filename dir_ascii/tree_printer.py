@@ -20,6 +20,7 @@ class TreePrinter(object):
     # Static constants for some formatting characters
     LEVEL_CHAR = '|'
     ENTRY_CHAR = '-'
+    END_CHAR = '`'
 
     def __init__(self, tree, indentation_width=4, output_file=None):
         if indentation_width < 2:
@@ -35,28 +36,50 @@ class TreePrinter(object):
                                                     self._indentation_width-1,
                                                     TreePrinter.ENTRY_CHAR)
         self._entry_prefix += ' '
+        self._end_prefix = TreePrinter.END_CHAR.ljust(self._indentation_width-1,
+                                                      TreePrinter.ENTRY_CHAR)
+        self._end_prefix += ' '
 
         # If an output file is specified, redirect stdout
         if output_file:
             sys.stdout = open(output_file, 'wb')
 
-    def _print_recursive(self, node, level):
-        # Print this node and it's files
-        if level <= 0:
-            print(node.get_name()) # pylint: disable=superfluous-parens
-        else:
-            dirname = self._indent_str * (level - 1) + self._entry_prefix + \
-                node.get_name()
-            print(dirname) # pylint: disable=superfluous-parens
+    def _print_recursive(self, node, indent_str):
+        # Get this node's files and children
+        files = node.get_files()
+        children = node.get_children()
 
-        for filename in node.files():
-            file_entry = self._indent_str * level + self._entry_prefix + \
-                filename
-            print(file_entry) # pylint: disable=superfluous-parens
+        # Initialize length variables
+        n_files = len(files)
+        n_children = len(children)
+
+        # Print this node's files
+        for i in range(n_files):
+            entry = indent_str + self._entry_prefix + files[i]
+
+            # If this is the last file and there are no children, use the end
+            # prefix instead of the normal prefix
+            if n_children <= 0 and i + 1 == n_files:
+                entry = indent_str + self._end_prefix + files[i]
+
+            print(entry) # pylint: disable=superfluous-parens
 
         # Recursively call on all children
-        for child in node.children():
-            self._print_recursive(child, level + 1)
+        child_indent_str = indent_str + self._indent_str
+        for i in range(n_children):
+            child = children[i]
+            prefix = self._entry_prefix
+
+            # If this is the last child, use the end prefix else use the normal
+            # entry prefix
+            if i + 1 == n_children:
+                child_indent_str = indent_str + " " * self._indentation_width
+                prefix = self._end_prefix
+
+            print(indent_str + prefix + child.get_name())
+            self._print_recursive(child, child_indent_str)
 
     def print_tree(self):
-        self._print_recursive(self._tree.get_root(), 0)
+        root = self._tree.get_root()
+        print(root.get_name())  # pylint: disable=superfluous-parens
+        self._print_recursive(root, "")
