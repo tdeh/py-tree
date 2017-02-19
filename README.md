@@ -6,7 +6,7 @@
 
 Creates an ASCII-based graphcial representation of directory hierarchies.
 
-### Example Output ###
+### Output for project hierarchy ###
 
 ```
 .
