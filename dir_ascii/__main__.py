@@ -21,7 +21,15 @@ Example:
 """
 
 from .directory_explorer import DirectoryExplorer
+from .tree_printer import TreePrinter
+
+
+def main():
+    explorer = DirectoryExplorer()
+    tree = explorer.build_tree()
+    printer = TreePrinter(tree)
+    printer.print_tree()
 
 
 if __name__ == "__main__":
-    DirectoryExplorer().build_tree().print_tree()
+    main()
