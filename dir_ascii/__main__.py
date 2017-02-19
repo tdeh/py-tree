@@ -25,6 +25,7 @@ from .tree_printer import TreePrinter
 
 
 def main():
+    """Builds a directory tree and then prints it."""
     explorer = DirectoryExplorer()
     tree = explorer.build_tree()
     printer = TreePrinter(tree)
