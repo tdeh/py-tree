@@ -86,7 +86,7 @@ class DirectoryExplorer(object):
                 directories.append(entry)
 
         # Return tuple of the file and directory list
-        return files, directories
+        return sorted(files), sorted(directories)
 
     def explore(self):
         """Performs a breadth-first search on directory contents.
