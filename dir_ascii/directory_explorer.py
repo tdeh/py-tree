@@ -71,8 +71,11 @@ class DirectoryExplorer(object):
         files = []
         directories = []
 
+        # Lexicographically sort the raw list
+        lex_ordered_list = sorted(raw_list, key=str.lower)
+
         # Iterate through each entry in the file/directory list
-        for entry in raw_list:
+        for entry in lex_ordered_list:
             # If show hidden is false and the entry starts with a '.', continue
             # to the next entry
             if not self._show_hidden and re.match(r"\..*", entry):
@@ -86,7 +89,7 @@ class DirectoryExplorer(object):
                 directories.append(entry)
 
         # Return tuple of the file and directory list
-        return sorted(files), sorted(directories)
+        return files, directories
 
     def explore(self):
         """Performs a breadth-first search on directory contents.
