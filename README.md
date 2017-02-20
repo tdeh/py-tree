@@ -10,29 +10,25 @@ Creates an ASCII-based graphcial representation of directory hierarchies.
 
 ```
 .
-|-- requirements.txt
-|-- CONTRIBUTING.md
-|-- LICENSE
 |-- _config.yml
 |-- apply_license.sh
+|-- CONTRIBUTING.md
+|-- LICENSE
 |-- license_boilerplate
 |-- README.md
+|-- requirements.txt
 `-- dir_ascii
-    |-- directory_tree.pyc
-    |-- tree_printer.py
-    |-- __main__.py
     |-- __init__.py
-    |-- directory_explorer.pyc
+    |-- __main__.py
     |-- directory_explorer.py
     |-- directory_tree.py
-    |-- __init__.pyc
-    |-- tree_printer.pyc
+    |-- tree_printer.py
     `-- tests
-        |-- test_directory_tree.py
-        |-- __main__.py
         |-- __init__.py
-        |-- test_tree_printer.py
-        `-- test_directory_explorer.py
+        |-- __main__.py
+        |-- test_directory_explorer.py
+        |-- test_directory_tree.py
+        `-- test_tree_printer.py
 ```
 
 ## Install ##
