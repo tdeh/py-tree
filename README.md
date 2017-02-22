@@ -41,6 +41,35 @@ In the root project directory:
 
     python -m dir_ascii
 
+To get argument details & descriptions:
+
+    python -m dir_ascii -h
+
+This should output something like:
+
+```
+usage: __main__.py [-h] [-s] [-d [DEPTH_LIMIT]] [-o [OUTPUT_FILE]]
+                   [-w [INDENTATION_WIDTH]]
+                   [start]
+
+Creates text-based graphical of directory hierarchies.
+
+positional arguments:
+  start                 Path to start the search
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -s, --show_hidden     Show hidden files/directories e.g. .file, ..dir
+  -d [DEPTH_LIMIT], --depth_limit [DEPTH_LIMIT]
+                        Maximum directory depth to be explored
+  -o [OUTPUT_FILE], --output_file [OUTPUT_FILE]
+                        Write output to file name specified
+  -w [INDENTATION_WIDTH], --indentation_width [INDENTATION_WIDTH]
+                        The indentation width in number of spaces per
+                        directory level. Min width is 2, default is 4.
+
+```
+
 ## Running Unit Tests ##
 
 ### Option 1 ###
