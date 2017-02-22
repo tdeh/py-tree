@@ -50,10 +50,11 @@ class TreePrinter(object):
     END_CHAR = '`'
 
     def __init__(self, tree, indentation_width=4, output_file=None):
-        if indentation_width < 2:
-            raise Exception("Indentation width must be 2 or greater!")
-
         self._tree = tree
+
+        if indentation_width < 2:
+            print("Indentation width defaulted to 2 since width must be <= 2")  # pylint: disable=superfluous-parens
+            indentation_width = 2
         self._indentation_width = indentation_width
 
         # Indentation string
