@@ -177,7 +177,11 @@ class DirectoryExplorer(object):
 
             # Use os.listdir to get a list of all files & directories inside of
             # the current_dir
-            listdir_result = os.listdir(current_dir)
+            try:
+                listdir_result = os.listdir(current_dir)
+            except OSError:
+                # We don't have permission to read this directory so move on
+                continue
 
             # Sort and filter the results from listdir
             files, directories = self._sort_and_filter(listdir_result,
