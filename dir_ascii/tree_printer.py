@@ -44,10 +44,11 @@ class TreePrinter(object):
             directory.
     """
 
-    # Static constants for formatting characters
+    # Static constants for formatting
     LEVEL_CHAR = '|'
     ENTRY_CHAR = '-'
     END_CHAR = '`'
+    SYMLINK_FORMAT = "%s -> %s"
 
     def __init__(self, tree, indentation_width=4, output_file=None):
         self._tree = tree
@@ -76,8 +77,21 @@ class TreePrinter(object):
         if output_file:
             sys.stdout = open(output_file, 'w')
 
+    def _format_symlink_pair(self, symlink_pair):
+        """Formats symlink->real path pairs into a string.
+
+        Args:
+            symlink_pair (tuple): Pair containing symlink and real path names.
+        Returns:
+            Formatted string with symlink and path name.
+        """
+        if isinstance(symlink_pair) != tuple or len(symlink_pair) != 2:
+            raise TypeError("Bad symlink pair!")
+
+        return TreePrinter.SYMLINK_FORMAT % (symlink_pair[0], symlink_pair[1])
+
     def _print_recursive(self, node, indent_str):
-        """Recursive method called on all nodes to print children and files.
+        """Recursive method called on nodes prints children, files, & symlinks.
 
         This method will recursively call itself on all children of the
         specified node.
@@ -86,22 +100,37 @@ class TreePrinter(object):
             node (DirectoryNode): The current node being visited.
             indent_str (str): The string to be printed as indentation.
         """
-        # Get this node's files and children
+        # Get this node's files, children, and symlinks
         files = node.get_files()
         children = node.get_children()
+        symlinks = node.get_symlinks()
 
         # Initialize length variables
         n_files = len(files)
+        n_symlinks = len(symlinks)
         n_children = len(children)
 
         # Print this node's files
         for i in range(n_files):
             entry = indent_str + self._entry_prefix + files[i]
 
-            # If this is the last file and there are no children, use the end
-            # prefix instead of the normal prefix
-            if n_children <= 0 and i + 1 == n_files:
+            # If this is the last file and there are no children or symlinks,
+            # use the end prefix instead of the normal prefix
+            if n_children <= 0 and n_symlinks <= 0 and i + 1 == n_files:
                 entry = indent_str + self._end_prefix + files[i]
+
+            print(entry)  # pylint: disable=superfluous-parens
+
+        # Print this node's symlinks
+        for i in range(n_symlinks):
+            entry = indent_str + self._entry_prefix + \
+                    self._format_symlink_pair(symlinks[i])
+
+            # If this is the last symlink and there are no children, use the end
+            # prefix instead of the normal prefix
+            if n_children <= 0 and i + 1 == n_symlinks:
+                entry = indent_str + self._end_prefix + \
+                        self._format_symlink_pair(symlinks[i])
 
             print(entry)  # pylint: disable=superfluous-parens
 
