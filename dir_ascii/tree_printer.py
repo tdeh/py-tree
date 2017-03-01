@@ -85,7 +85,7 @@ class TreePrinter(object):
         Returns:
             Formatted string with symlink and path name.
         """
-        if isinstance(symlink_pair) != tuple or len(symlink_pair) != 2:
+        if not isinstance(symlink_pair, tuple) or len(symlink_pair) != 2:
             raise TypeError("Bad symlink pair!")
 
         return TreePrinter.SYMLINK_FORMAT % (symlink_pair[0], symlink_pair[1])
