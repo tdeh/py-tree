@@ -46,6 +46,8 @@ class TestDirectoryExplorer(unittest.TestCase):
         self.dir_pattern_b = "dirb%i"
         self.file_pattern_a = "filea%i.txt"
         self.file_pattern_b = "fileb%i.txt"
+        self.symlink_pattern_a = "symlinka%i"
+        self.symlink_pattern_b = "symlinkb%i"
 
         path = self.test_dir
         for i in range(3):
@@ -54,6 +56,8 @@ class TestDirectoryExplorer(unittest.TestCase):
             path = os.path.join(path, self.dir_pattern_a % i) + "/"
             open(path + (self.file_pattern_a % i), 'a').close()
             open(path + (self.file_pattern_b % i), 'a').close()
+            os.symlink(path, path + (self.symlink_pattern_a % i))
+            os.symlink(path, path + (self.symlink_pattern_b % i))
 
     def tearDown(self):
         shutil.rmtree(self.test_dir)
@@ -152,6 +156,10 @@ class TestDirectoryExplorer(unittest.TestCase):
                 files = current_node.get_files()
                 self.assertTrue(self.file_pattern_a % level in files)
                 self.assertTrue(self.file_pattern_b % level in files)
+
+                symlinks = current_node.get_symlinks()
+                self.assertTrue(self.symlink_pattern_a % level in symlinks)
+                self.assertTrue(self.symlink_pattern_b % level in symlinks)
 
             level += 1
             current_node = current_node.get_children()[0]
