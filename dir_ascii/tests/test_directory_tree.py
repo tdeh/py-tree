@@ -74,6 +74,21 @@ class TestDirectoryNode(unittest.TestCase):
         for i in range(n_files):
             self.assertEqual(files[i], name_template % i)
 
+    def test_add_symlinks_get_symlinks(self):
+        """Test add_symlinks and get_symlinks methods."""
+        n_symlinks = 50
+        symlink_list = []
+        name_template = "link%i"
+
+        for i in range(n_symlinks):
+            symlink_list.append(name_template % i)
+
+        self.node.add_files(symlink_list)
+
+        files = self.node.get_files()
+        for i in range(n_symlinks):
+            self.assertEqual(files[i], name_template % i)
+
     def test_children_generator(self):
         """Test the get_children generator method."""
         n_children = 50
