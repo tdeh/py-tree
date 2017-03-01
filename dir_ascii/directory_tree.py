@@ -29,7 +29,7 @@ files.
 class DirectoryNode(object):
     """Recursive data structure containing filenames and directories.
 
-    Exposes methods for adding child nodes, adding files, in addition to
+    Exposes methods for adding child nodes, files, and symlinks in addition to
     generator methods for iterating over child nodes and filenames.
 
     Args:
@@ -39,12 +39,14 @@ class DirectoryNode(object):
         _name (str): The name of this directory.
         _child_dirs (list): List of DirectoryNodes under this directory.
         _files (list): List of string filenames under this directory.
+        _symlinks (list): List of symlink->real path pairs under this directory.
     """
 
     def __init__(self, name):
         self._name = name
         self._child_dirs = []
         self._files = []
+        self._symlinks = []
 
     def add_child(self, name):
         """Add child node under this directory.
@@ -70,6 +72,14 @@ class DirectoryNode(object):
             file_list (list): List of files to add to _files.
         """
         self._files += file_list
+
+    def add_symlinks(self, symlink_list):
+        """Adds a list of symlinks to the directory's symlink list.
+
+        Args:
+            symlink_list (list): List of symlinks to add to _symlinks.
+        """
+        self._symlinks += symlink_list
 
     def children(self):
         """Iterates through the child nodes.
@@ -112,6 +122,14 @@ class DirectoryNode(object):
             List of files under this directory.
         """
         return self._files
+
+    def get_symlinks(self):
+        """Get the list of symbolic links under this directory.
+
+        Returns:
+            List of symlinks under this directory.
+        """
+        return self._symlinks
 
     def get_last_child(self):
         """Get the last child added to the list of children.
