@@ -41,11 +41,13 @@ class TestTreePrinter(unittest.TestCase):
             mock_child = MagicMock()
             mock_child.get_children.return_value = []
             mock_child.get_files.return_value = []
+            mock_child.get_symlinks.return_value = []
             mock_child.get_name.return_value = ""
             self._mock_children.append(mock_child)
 
         self._mock_root.get_children.return_value = self._mock_children
         self._mock_root.get_files.return_value = []
+        self._mock_root.get_symlinks.return_value = []
         self._mock_root.get_name.return_value = ""
 
         self._mock_tree.get_root.return_value = self._mock_root
@@ -73,6 +75,17 @@ class TestTreePrinter(unittest.TestCase):
 
         for mock_node in self._mock_children:
             mock_node.get_files.assert_called_once()
+
+    def test_print_tree_gets_all_links(self):
+        """Tests that print_tree will get all symlinks."""
+        printer = TreePrinter(self._mock_tree)
+        printer.print_tree()
+
+        self._mock_tree.get_root.assert_called_once()
+        self._mock_root.get_symlinks.assert_called_once()
+
+        for mock_node in self._mock_children:
+            mock_node.get_symlinks.assert_called_once()
 
     def test_print_tree_writes_to_file(self):
         """Tests that print_tree will write to a file when specified."""

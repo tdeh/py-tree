@@ -57,19 +57,22 @@ class DirectoryExplorer(object):
         """Sorts and filters a list of files and directories.
 
         Takes a list of directories and files, parses each entry sorting it
-        based on whether it's a file or a directory, filters out hidden files if
-        show_hidden is False, and returns a tuple of file and directory lists.
+        based on whether it's a file, directory, or symlink. Filters out hidden
+        files if show_hidden is False. Returns a tuple of file, directory, and
+        symlink lists.
 
         Args:
             raw_list (list): List containing string directory and file names.
             root (str): Root path to the entries in the list.
 
         Returns:
-            A tuple of two lists, one for files and the other for directories.
+            A tuple of lists, the first for files, the second for directories,
+            and the last entry for symbolic links.
         """
-        # Initialize lists for files and directories
+        # Initialize lists for files, directories, and symlinks
         files = []
         directories = []
+        symlinks = []
 
         # Lexicographically sort the raw list
         lex_ordered_list = sorted(raw_list, key=str.lower)
@@ -81,15 +84,17 @@ class DirectoryExplorer(object):
             if not self._show_hidden and re.match(r"\..*", entry):
                 continue
 
-            # If the entry is a file, append it to the file list, else append
-            # it to the directory list
-            if os.path.isfile(os.path.join(root, entry)):
+            # Determine entry type and append to respective list
+            full_path = os.path.join(root, entry)
+            if os.path.islink(full_path):
+                symlinks.append((entry, os.path.realpath(full_path)))
+            elif os.path.isfile(full_path):
                 files.append(entry)
             else:
                 directories.append(entry)
 
-        # Return tuple of the file and directory list
-        return files, directories
+        # Return tuple of the file, directory, and symlink lists
+        return files, directories, symlinks
 
     def explore(self):
         """Performs a breadth-first search on directory contents.
@@ -128,8 +133,8 @@ class DirectoryExplorer(object):
                 continue
 
             # Sort and filter the results from listdir
-            files, directories = self._sort_and_filter(listdir_result,
-                                                       current_dir)
+            files, directories, _ = self._sort_and_filter(listdir_result,
+                                                          current_dir)
 
             # Add a tuple of the sorted directories and files to the results
             results.append((directories, files))
@@ -143,7 +148,7 @@ class DirectoryExplorer(object):
             for directory in directories:
                 next_level.append(os.path.join(current_dir, directory))
 
-            # If the current levl queue is empty and we are still below the
+            # If the current level queue is empty and we are still below the
             # recursion limit, set the current level queue equal to the next
             # level queue and increment the recursion level
             if len(current_level) == 0 and \
@@ -188,11 +193,14 @@ class DirectoryExplorer(object):
                 continue
 
             # Sort and filter the results from listdir
-            files, directories = self._sort_and_filter(listdir_result,
-                                                       current_dir)
+            files, directories, symlinks = self._sort_and_filter(listdir_result,
+                                                                 current_dir)
 
             # Add files to node
             current_node.add_files(files)
+
+            # Add symlinks to node
+            current_node.add_symlinks(symlinks)
 
             # For each directory inside of current_dir, add child node
             for directory in directories:
@@ -204,7 +212,7 @@ class DirectoryExplorer(object):
                     next_level.append((os.path.join(current_dir, directory),
                                        current_node.get_last_child()))
 
-            # If the current levl queue is empty and we are still below the
+            # If the current level queue is empty and we are still below the
             # recursion limit, set the current level queue equal to the next
             # level queue and increment the recursion level
             if len(current_level) == 0 and \
