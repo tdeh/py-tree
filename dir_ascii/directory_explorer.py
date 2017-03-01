@@ -133,8 +133,8 @@ class DirectoryExplorer(object):
                 continue
 
             # Sort and filter the results from listdir
-            files, directories = self._sort_and_filter(listdir_result,
-                                                       current_dir)
+            files, directories, _ = self._sort_and_filter(listdir_result,
+                                                          current_dir)
 
             # Add a tuple of the sorted directories and files to the results
             results.append((directories, files))
@@ -193,11 +193,14 @@ class DirectoryExplorer(object):
                 continue
 
             # Sort and filter the results from listdir
-            files, directories = self._sort_and_filter(listdir_result,
-                                                       current_dir)
+            files, directories, symlinks = self._sort_and_filter(listdir_result,
+                                                                 current_dir)
 
             # Add files to node
             current_node.add_files(files)
+
+            # Add symlinks to node
+            current_node.add_symlinks(symlinks)
 
             # For each directory inside of current_dir, add child node
             for directory in directories:
