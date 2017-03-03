@@ -11,7 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from setuptools import setup
+
+from setuptools import setup, find_packages
 
 setup(name='dir_ascii',
       version='0.1',
@@ -30,9 +31,9 @@ setup(name='dir_ascii',
       author_email='tdehaan93@gmail.com',
       license='Apache',
       packages=['dir_ascii'],
-      install_requires=[
-          'pytest',
-          'pylint',
+      test_suite='nose.collector',
+      tests_require=[
+          'nose',
           'mock'
       ],
       zip_safe=False)
