@@ -34,8 +34,7 @@ setup(name='dir_ascii',
       test_suite='nose.collector',
       tests_require=[
           'nose',
-          'mock',
-          'pylint'
+          'mock'
       ],
       entry_points={
           'console_scripts': ['dir-ascii=dir_ascii.__main__:main'],
