@@ -36,4 +36,7 @@ setup(name='dir_ascii',
           'nose',
           'mock'
       ],
+      entry_points={
+          'console_scripts': ['dir-ascii=dir_ascii.__main__:main'],
+      },
       zip_safe=False)
