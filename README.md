@@ -41,11 +41,11 @@ Clone repository and run this command from the root project directory::
 
 Setuptools should create a standalone script for running **Dir-ASCII** and add it to your *PATH*. To run this script::
 
-    $dir_ascii
+    $ dir_ascii
 
 To get argument details & descriptions::
 
-    $dir_ascii -h
+    $ dir_ascii -h
 
 This should output something like::
 
