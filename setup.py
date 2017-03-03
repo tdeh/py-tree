@@ -21,4 +21,9 @@ setup(name='dir_ascii',
       author_email='tdehaan93@gmail.com',
       license='Apache',
       packages=['dir_ascii'],
+      install_requires=[
+          'pytest',
+          'pylint',
+          'mock'
+      ],
       zip_safe=False)
