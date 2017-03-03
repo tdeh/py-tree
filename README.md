@@ -33,24 +33,26 @@ Creates an ASCII-based graphcial representation of directory hierarchies.
 
 ## Install ##
 
-Run `pip install -r requirements.txt` to download all package dependencies.
+Clone repository and run this command from the root project directory::
+
+    pip install .
 
 ## Usage ##
 
-In the root project directory:
+Setuptools should create a standalone script for running **Dir-ASCII** and add it to your *PATH*. To run this script::
 
-    python -m dir_ascii
+    $dir_ascii
 
-To get argument details & descriptions:
+To get argument details & descriptions::
 
-    python -m dir_ascii -h
+    $dir_ascii -h
 
-This should output something like:
+This should output something like::
 
 ```
-usage: __main__.py [-h] [-s] [-d [DEPTH_LIMIT]] [-o [OUTPUT_FILE]]
-                   [-w [INDENTATION_WIDTH]]
-                   [start]
+usage: dir-ascii [-h] [-s] [-d [DEPTH_LIMIT]] [-o [OUTPUT_FILE]]
+                 [-w [INDENTATION_WIDTH]]
+                 [start]
 
 Creates text-based graphical of directory hierarchies.
 
@@ -72,13 +74,17 @@ optional arguments:
 
 ## Running Unit Tests ##
 
-### Option 1 ###
+    python setup.py test
+    
+## Linting ##
 
-    py.test
+Install *pylint*::
 
-### Option 2 ###
+    pip install pylint
+    
+Run on code directory::
 
-    python -m dir_ascii.tests
+    pylint dir_ascii
 
 ## Contributing ##
 
