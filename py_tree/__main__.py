@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""This module is the entry point for dir_ascii.
+"""This module is the entry point for py_tree.
 
 Example:
-    In order to run dir_ascii, use this command::
+    In order to run py_tree, use this command::
 
-        $ python -m dir_ascii
+        $ python -m py_tree
 """
 
 from argparse import ArgumentParser
@@ -29,7 +29,9 @@ def main():
     """Parsers args, builds a directory tree, and then prints it."""
     # Setup argument parsing
     parser = ArgumentParser(
-        description="Creates text-based graphical of directory hierarchies.")
+        description="""
+        Creates text-based graphical representations of directory hierarchies.
+        """)
     parser.add_argument("start", type=str, nargs="?", default=".",
                         help="Path to start the search")
     parser.add_argument("-s", "--show_hidden", action="store_true",

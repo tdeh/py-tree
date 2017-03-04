@@ -1,10 +1,10 @@
-# Dir-ASCII #
+# Py-Tree #
 
-[![Build Status](https://travis-ci.org/tdeh/dir-ascii.svg?branch=master)](https://travis-ci.org/tdeh/dir-ascii)
+[![Build Status](https://travis-ci.org/tdeh/py-tree.svg?branch=master)](https://travis-ci.org/tdeh/py-tree)
 
 ## Overview ##
 
-Creates an ASCII-based graphcial representation of directory hierarchies.
+Creates a text-based graphcial representation of file hierarchies.
 
 ### Output for project hierarchy ###
 
@@ -17,7 +17,7 @@ Creates an ASCII-based graphcial representation of directory hierarchies.
 |-- license_boilerplate
 |-- README.md
 |-- requirements.txt
-`-- dir_ascii
+`-- py_tree
     |-- __init__.py
     |-- __main__.py
     |-- directory_explorer.py
@@ -39,22 +39,22 @@ Clone repository and run this command from the root project directory::
 
 ## Usage ##
 
-Setuptools should create a standalone script for running **Dir-ASCII** and add it to your *PATH*. To run this script::
+Setuptools should create a standalone script for running **Py-Tree** and add it to your *PATH*. To run this script::
 
-    $ dir_ascii
+    $ py_tree
 
 To get argument details & descriptions::
 
-    $ dir_ascii -h
+    $ py_tree -h
 
 This should output something like::
 
 ```
-usage: dir-ascii [-h] [-s] [-d [DEPTH_LIMIT]] [-o [OUTPUT_FILE]]
-                 [-w [INDENTATION_WIDTH]]
-                 [start]
+usage: py-tree [-h] [-s] [-d [DEPTH_LIMIT]] [-o [OUTPUT_FILE]]
+               [-w [INDENTATION_WIDTH]]
+               [start]
 
-Creates text-based graphical of directory hierarchies.
+Creates text-based graphical representations of directory hierarchies.
 
 positional arguments:
   start                 Path to start the search
@@ -75,16 +75,16 @@ optional arguments:
 ## Running Unit Tests ##
 
     python setup.py test
-    
+
 ## Linting ##
 
 Install *pylint*::
 
     pip install pylint
-    
+
 Run on code directory::
 
-    pylint dir_ascii
+    pylint py_tree
 
 ## Contributing ##
 

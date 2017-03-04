@@ -17,7 +17,7 @@
 Example:
     In order to run this module and the unittests, use this command::
 
-        $ python -m dir_ascii.tests
+        $ python -m py_tree.tests
 """
 
 import unittest

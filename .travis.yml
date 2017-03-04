@@ -7,13 +7,13 @@ python:
   - "3.6"
   - "3.6-dev"
 
-install: 
+install:
   - pip install .
   - pip install pylint
 
 script:
   - python setup.py test
-  - pylint dir_ascii
+  - pylint py_tree
 
 notifications:
   email: false
