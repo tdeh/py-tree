@@ -33,19 +33,27 @@ Creates a text-based graphcial representation of file hierarchies.
 
 ## Install ##
 
-Clone repository and run this command from the root project directory::
+### Users ###
 
-    pip install .
+**py-tree** is registered on the [Python Package Index](https://pypi.python.org/pypi/py_tree) and can be installed via `pip`::
+
+    pip install py_tree
+    
+### Developers ###
+
+Clone repository and run this `pip` command from the root project directory::
+
+    pip install -e .
 
 ## Usage ##
 
 Setuptools should create a standalone script for running **Py-Tree** and add it to your *PATH*. To run this script::
 
-    $ py_tree
+    $ py-tree
 
 To get argument details & descriptions::
 
-    $ py_tree -h
+    $ py-tree -h
 
 This should output something like::
 
