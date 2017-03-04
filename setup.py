@@ -14,29 +14,33 @@
 
 from setuptools import setup, find_packages
 
-setup(name='dir_ascii',
-      version='0.1',
-      description='Creates an ASCII-based graphcial representation of directory hierarchies',
-      url='http://github.com/tdeh/dir-ascii',
+setup(name='py_tree',
+      version='1.0.0',
+      description='Creates a text-based graphcial representation of file hierarchies',
+      url='http://github.com/tdeh/py-tree',
       classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Console',
         'License :: OSI Approved :: Apache Software License',
-        'Programming Language :: Python',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Operating System :: POSIX :: Linux',
         'Topic :: Utilities',
       ],
-      keywords='tree directory hierarchy ascii',
+      keywords='tree directory files hierarchy',
       author='Taylor DeHaan',
       author_email='tdehaan93@gmail.com',
       license='Apache',
-      packages=['dir_ascii'],
+      packages=['py_tree'],
       test_suite='nose.collector',
       tests_require=[
           'nose',
           'mock'
       ],
       entry_points={
-          'console_scripts': ['dir-ascii=dir_ascii.__main__:main'],
+          'console_scripts': ['py-tree=py_tree.__main__:main'],
       },
       zip_safe=False)

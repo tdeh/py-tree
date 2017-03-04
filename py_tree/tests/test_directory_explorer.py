@@ -17,7 +17,7 @@
 Example:
     These tests can be run with the command::
 
-        $ python -m dir_ascii.tests.test_directory_explorer
+        $ python -m py_tree.tests.test_directory_explorer
 """
 
 import os
