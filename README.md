@@ -99,7 +99,7 @@ To get argument details & descriptions:
 
 ## Linting ##
 
-Install *pylint*::
+Install **pylint**:
 
     pip install pylint
 
