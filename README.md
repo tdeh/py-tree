@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/tdeh/py-tree.svg?branch=master)](https://travis-ci.org/tdeh/py-tree)
 
-A command line tool for generating text-based graphcial representation of file hierarchies.
+A command line tool for generating text-based representations of file hierarchies.
 
 ```
 $ py-tree
