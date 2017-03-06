@@ -14,7 +14,7 @@
 
 from setuptools import setup, find_packages
 
-setup(name='py_tree',
+setup(name='py-tree',
       version='1.0.0',
       description='Creates a text-based graphcial representation of file hierarchies',
       url='http://github.com/tdeh/py-tree',
@@ -41,6 +41,6 @@ setup(name='py_tree',
           'mock'
       ],
       entry_points={
-          'console_scripts': ['py-tree=py_tree.__main__:main'],
+          'console_scripts': ['py-tree=py_tree.command_line:command_line_runner'],
       },
       zip_safe=False)
