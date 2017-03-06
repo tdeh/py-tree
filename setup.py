@@ -16,7 +16,7 @@ from setuptools import setup, find_packages
 
 setup(name='py-tree',
       version='1.0.0',
-      description='Creates a text-based graphcial representation of file hierarchies',
+      description='Text-based graphcial representation of file hierarchies',
       url='http://github.com/tdeh/py-tree',
       classifiers=[
         'Development Status :: 3 - Alpha',
