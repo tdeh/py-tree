@@ -15,7 +15,7 @@
 from setuptools import setup, find_packages
 
 setup(name='py-tree',
-      version='1.0.0',
+      version='1.0.1',
       description='A command line tool for generating text-based graphcial representation of file hierarchies.',
       url='http://github.com/tdeh/py-tree',
       classifiers=[
