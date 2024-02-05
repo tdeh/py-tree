@@ -15,8 +15,6 @@ jobs:
         # keep it sync with tox.ini [gh-actions] section
         python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
         os: ["ubuntu-latest", "windows-latest", "macos-latest"]
-        include:
-          - {python-version: "2.7", os: "macos-11"}
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python
