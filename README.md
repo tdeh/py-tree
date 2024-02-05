@@ -36,26 +36,30 @@ $ py-tree
 ### Users ###
 
 **py-tree** is registered on the [Python Package Index](https://pypi.python.org/pypi/py-tree) and can be installed via `pip`:
-
-    pip install py-tree
+```bash
+pip install py-tree
+```
 
 ### Developers ###
 
 Clone repository and run this `pip` command from the root project directory:
-
-    pip install -e .
+```bash
+pip install -e .
+```
 
 ## Usage ##
 
 ### Linux Terminal ###
 
 Setuptools should create a standalone script for running **Py-Tree** and add it to your *PATH*. To run this script:
-
-    $ py-tree
+```bash
+$ py-tree
+```
 
 To get argument details & descriptions:
-
-    $ py-tree -h
+```bash
+$ py-tree -h
+```
 
 This should output something like:
 
@@ -85,27 +89,40 @@ optional arguments:
 ### Python Console ###
 
 To run from an interactive Python session:
-
-    >>> import py_tree
-    >>> py_tree.main()
+```python
+import py_tree
+py_tree.main()
+```
 
 To get argument details & descriptions:
-
-    >>> help(py_tree.main)
+```python
+help(py_tree.main)
+```
 
 ## Running Unit Tests ##
 
-    python setup.py test
+For testing you need to install aditional testing dependencies from the `requirements.txt` file in the `tests` directory. Run this `pip` command from the root project directory:
+```bash
+pip install -r tests/requirements.txt
+```
+and then run the tests with:
+```bash
+pytest -v tests
+```
 
 ## Linting ##
 
 Install **pylint**:
 
-    pip install pylint
+```bash
+pip install pylint
+```
 
 Run on code directory:
 
-    pylint py_tree
+```bash
+pylint py_tree
+```
 
 ## Contributing ##
 
