@@ -23,7 +23,7 @@ Example:
 import os
 import unittest
 from mock import MagicMock
-from ..tree_printer import TreePrinter
+from py_tree.tree_printer import TreePrinter
 
 
 class TestTreePrinter(unittest.TestCase):

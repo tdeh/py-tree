@@ -23,7 +23,7 @@ Example:
 import os
 import shutil
 import unittest
-from ..directory_explorer import DirectoryExplorer
+from py_tree.directory_explorer import DirectoryExplorer
 
 
 class TestDirectoryExplorer(unittest.TestCase):
